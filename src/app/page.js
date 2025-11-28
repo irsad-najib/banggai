@@ -363,6 +363,26 @@ export default function Page() {
     );
   };
 
+  // Helper function to highlight keywords in text
+  const highlightKeywords = (text) => {
+    if (!text) return text;
+
+    // Split text by the keywords while preserving them
+    const regex = /(permasalahan|potensi)/gi;
+    const parts = text.split(regex);
+
+    return parts.map((part, index) => {
+      if (/^(permasalahan|potensi)$/i.test(part)) {
+        return (
+          <strong key={index} className="font-bold">
+            {part}
+          </strong>
+        );
+      }
+      return part;
+    });
+  };
+
   // Component to render formatted text with proper list styling
   const FormattedText = ({ text, className = "" }) => {
     if (!text || text === "-") return <span className={className}>{text}</span>;
@@ -384,7 +404,7 @@ export default function Page() {
                   {number}
                 </span>
                 <span className="flex-1 text-gray-700 dark:text-gray-300 leading-relaxed">
-                  {content}
+                  {highlightKeywords(content)}
                 </span>
               </div>
             );
@@ -400,7 +420,7 @@ export default function Page() {
                   {letter}
                 </span>
                 <span className="flex-1 text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-                  {content}
+                  {highlightKeywords(content)}
                 </span>
               </div>
             );
@@ -415,7 +435,7 @@ export default function Page() {
                   •
                 </span>
                 <span className="flex-1 text-gray-700 dark:text-gray-300 leading-relaxed">
-                  {content}
+                  {highlightKeywords(content)}
                 </span>
               </div>
             );
@@ -426,7 +446,7 @@ export default function Page() {
             <p
               key={idx}
               className="mb-2 text-gray-700 dark:text-gray-300 leading-relaxed">
-              {trimmedLine}
+              {highlightKeywords(trimmedLine)}
             </p>
           );
         })}
@@ -461,7 +481,7 @@ export default function Page() {
                     Program Kerja KKN
                   </h1>
                   <p className="text-blue-100 text-lg">
-                    Desa Cikum - KKN Universitas
+                    Banggai Bertutur - KKN Universitas Gadjah Mada
                   </p>
                 </div>
               </div>
